@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Gothic+A1:200');
+body {
+  font-family: 'Gothic A1', sans-serif;
+  text-align: center;
+  color: #3884c9
+}
+
+html body {
+  background-color: #dddddd;
+}
+
+@media (max-width: 792px ) {
+  .calc {
+    width: 40% !important;
+  }
+}
+
+@media (max-width: 615px ) {
+  .calc {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 490px ) {
+  .calc {
+    width: 65% !important;
+  }
+}
+
+.btn-primary{
+  width: 100%;
+  padding: 3px !important;
+}
+
+.expression {
+  border:1px solid black;
+  width:90%;
+  height: 35px;
+  margin: 0 auto;
+  margin-top: 5px;
+  color: #007bff;
+  font-weight: 800;
+}
+
+.text {
+  text-align: left;
+}
+
+.calc {
+  border:1px solid black;
+  width:30%;
+  margin: 0 auto;
+}
+
+.row {
+  margin-bottom: 20px;
+  font-size: large;
+}

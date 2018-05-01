@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue App</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+  <link rel="stylesheet" href="vue.css">
+</head>
+<body>
+  <div id="app">
+    <h1>{{title}}</h1>
+    <div class="calc">
+    <b-container class="bv-example-row">
+      <b-row>
+        <div class="expression">
+          <b-col class="text">{{expression}}</b-col>
+        </div>
+      </b-row>
+      <b-row>
+        <b-col><button class="btn-primary" v-on:click="append(0)">0</button></b-col>
+        <b-col><button class="btn-primary" v-on:click='clear'>CE</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('+')">+</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('-')">-</button></b-col>
+      </b-row>
+      <b-row>
+        <b-col><button class="btn-primary" v-on:click="append(1)">1</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(2)">2</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(3)">3</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('×')">×</button></b-col>
+      </b-row>
+      <b-row>
+        <b-col><button class="btn-primary" v-on:click="append(4)">4</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(5)">5</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(6)">6</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('÷')">÷</button></b-col>
+      </b-row>
+      <b-row>
+        <b-col><button class="btn-primary" v-on:click="append(7)">7</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(8)">8</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(9)">9</button></b-col>
+        <b-col><button class="btn-primary">=</button></b-col>
+      </b-row>
+    </b-container>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        title: 'Calculator',
+        expression: '',
+        result: ''
+      },
+      methods: {
+        append(val) {
+          this.expression = this.expression + val.toString();
+        }, clear() {
+          this.expression = '';
+        }
+      }
+    })
+  </script>
+  </body>
+</html>
