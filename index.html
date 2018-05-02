@@ -5,6 +5,9 @@
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
   <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src= 'https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.2.1/math.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
   <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
   <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
   <link rel="stylesheet" href="vue.css">
@@ -12,53 +15,123 @@
 <body>
   <div id="app">
     <h1>{{title}}</h1>
-    <div class="calc">
+    <div class="calc animated slideInUp">
     <b-container class="bv-example-row">
       <b-row>
         <div class="expression">
-          <b-col class="text">{{expression}}</b-col>
+          <b-col class="text">{{text}}</b-col>
         </div>
       </b-row>
       <b-row>
-        <b-col><button class="btn-primary" v-on:click="append(0)">0</button></b-col>
+        <b-col><button class="btn-primary off" v-on:click='off'>OFF</button></b-col>
         <b-col><button class="btn-primary" v-on:click='clear'>CE</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append('+')">+</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append('-')">-</button></b-col>
-      </b-row>
-      <b-row>
-        <b-col><button class="btn-primary" v-on:click="append(1)">1</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append(2)">2</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append(3)">3</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append('×')">×</button></b-col>
-      </b-row>
-      <b-row>
-        <b-col><button class="btn-primary" v-on:click="append(4)">4</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append(5)">5</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append(6)">6</button></b-col>
-        <b-col><button class="btn-primary" v-on:click="append('÷')">÷</button></b-col>
+        <b-col><button class="btn-primary" v-on:click='back'>C</button></b-col>
+        <b-col><button class="btn-primary" v-on:click='append("%")'>%</button></b-col>
       </b-row>
       <b-row>
         <b-col><button class="btn-primary" v-on:click="append(7)">7</button></b-col>
         <b-col><button class="btn-primary" v-on:click="append(8)">8</button></b-col>
         <b-col><button class="btn-primary" v-on:click="append(9)">9</button></b-col>
-        <b-col><button class="btn-primary">=</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('÷')">÷</button></b-col>
+      </b-row>
+      <b-row>
+        <b-col><button class="btn-primary" v-on:click="append(4)">4</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(5)">5</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(6)">6</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('×')">×</button></b-col>
+      </b-row>
+      <b-row>
+        <b-col><button class="btn-primary" v-on:click="append(1)">1</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(2)">2</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append(3)">3</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('-')">-</button></b-col>
+      </b-row>
+      <b-row>
+        <b-col><button class="btn-primary" v-on:click="append(0)">0</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('.')">.</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="equals">=</button></b-col>
+        <b-col><button class="btn-primary" v-on:click="append('+')">+</button></b-col>
       </b-row>
     </b-container>
     </div>
   </div>
-  <script>
+  <script type="text/javascript">
     var app = new Vue({
       el: '#app',
       data: {
-        title: 'Calculator',
+        title: "Graeme's Super Calculator",
         expression: '',
-        result: ''
+        text: '',
+        lastNum: true,
+        decimal: false,
+        percent: false
       },
       methods: {
         append(val) {
-          this.expression = this.expression + val.toString();
+          if (this.text.length < 20) {
+            var insert;
+            if (val == '+' || val == '-' || val == '×' || val =='÷') {
+              if (this.text.length > 0 && this.lastNum == true && this.decimal == false) {
+                this.text = this.text + val;
+                switch(val) {
+                  case '×':
+                    insert = '*';
+                    break;
+                  case '÷':
+                    insert = '/';
+                    break;
+                  default:
+                    insert = val;
+                }
+                this.expression = this.expression + insert;
+                this.lastNum = false;
+                this.percent = false;
+                this.decimal = false;
+              }
+            } else if (val == '%') {
+              if (this.text.length > 0 && this.lastNum == true && this.percent == false) {
+                this.expression = this.expression + '/100';
+                this.text = this.text + val;
+                this.lastNum = true;
+                this.percent = true;
+                this.decimal = false;
+              }
+            } else if (val == '.') {
+              if (this.decimal == false && this.percent == false) {
+                this.expression = this.expression + val;
+                this.text = this.text + val;
+                this.decimal = true;
+                this.lastNum = true;
+                this.percent = false;
+              }
+            } else {
+              this.expression = this.expression + val.toString();
+              this.text = this.text + val.toString();
+              this.lastNum = true;
+              this.percent = false;
+              this.decimal = false;
+            }
+          }
+        }, back() {
+          this.expression = this.expression.slice(0,this.expression.length-1);
+          this.text = this.text.slice(0,this.text.length-1);
         }, clear() {
           this.expression = '';
+          this.text = '';
+          this.lastNum = true;
+          this.decimal = false;
+        }, equals() {
+          if (this.text.length > 0) {
+            this.text = math.eval(this.expression).toString();
+            this.expression = math.eval(this.expression).toString();
+          }
+          this.lastNum = true;
+          this.decimal = false;
+        }, off() {
+          // alert('Shutting Down.');
+          $('.calc').removeClass('slideInUp')
+          $('.calc').addClass('rotateOut')
+          // alert(this.text.charAt(this.text.length-1) != '.' + " = " + this.text.charAt(this.text.length-1))
         }
       }
     })

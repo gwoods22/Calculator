@@ -9,23 +9,13 @@ html body {
   background-color: #dddddd;
 }
 
-@media (max-width: 792px ) {
-  .calc {
-    width: 40% !important;
-  }
-}
-
-@media (max-width: 615px ) {
+ /* @media (max-width: 900px ) {
   .calc {
     width: 50% !important;
   }
-}
+} */
 
-@media (max-width: 490px ) {
-  .calc {
-    width: 65% !important;
-  }
-}
+
 
 .btn-primary{
   width: 100%;
@@ -49,10 +39,17 @@ html body {
 .calc {
   border:1px solid black;
   width:30%;
+  max-width: 328px;
   margin: 0 auto;
 }
 
 .row {
+  margin-top: 10px;
   margin-bottom: 20px;
-  font-size: large;
+  font-size: 18px;
+}
+
+.off{
+  font-size: 14px;
+  height: 35px;
 }
